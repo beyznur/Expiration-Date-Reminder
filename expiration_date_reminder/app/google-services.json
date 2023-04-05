@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "669875512125",
+    "project_id": "expirationdate-3f69e",
+    "storage_bucket": "expirationdate-3f69e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669875512125:android:ff25679396db8041badb54",
+        "android_client_info": {
+          "package_name": "com.beyzanur.expiration_date_reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669875512125-5i427mq6mue78sb4r8kirah6ge1nvjf6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpqlORl9WRFEENe2J9mQq-xXJftRfbcK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669875512125-5i427mq6mue78sb4r8kirah6ge1nvjf6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
