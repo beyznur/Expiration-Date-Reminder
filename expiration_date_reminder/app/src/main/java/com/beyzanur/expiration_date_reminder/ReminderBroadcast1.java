@@ -24,7 +24,7 @@ import java.util.Map;
 public class ReminderBroadcast1 extends BroadcastReceiver {
     String getCategory;
     String getName;
-    String BildirimText;
+    String NotificationText;
 
 
     @Override
@@ -34,13 +34,13 @@ public class ReminderBroadcast1 extends BroadcastReceiver {
 
          getCategory=intent.getStringExtra("category");
          getName= intent.getStringExtra("name");
-         BildirimText = getCategory + " kategorisinde bulunan ve adı " + getName +" olan ürününüzün son kullanma tarihi geçmeye yaklaşmıştır.";
+        NotificationText = "The product in your " + getCategory + " category named " + getName +" is approaching its expiration date.";
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ExpiryNotification")
-                .setSmallIcon(R.drawable.ic_skylight_notification)
+                .setSmallIcon(R.drawable.calendar_icon)
                 .setContentTitle("Expiry Approaching")
-                .setLargeIcon(BitmapFactory. decodeResource (context.getResources(), R.drawable. icon ))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(BildirimText))
+                .setLargeIcon(BitmapFactory. decodeResource (context.getResources(), R.drawable.ic_blue ))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(NotificationText))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
         builder.setOngoing(true);
@@ -56,8 +56,6 @@ public class ReminderBroadcast1 extends BroadcastReceiver {
         final NotificationManager notificationManager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(240,builder.build());
 
-
-        System.out.println("çalıitı6");
         Handler h = new Handler();
         long delayInMilliseconds = 1000000;
         h.postDelayed(new Runnable() {

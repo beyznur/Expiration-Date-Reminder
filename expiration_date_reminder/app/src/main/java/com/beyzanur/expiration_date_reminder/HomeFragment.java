@@ -6,13 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +37,10 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
-    TextView vegetables, fruit, medicine, beverage, dessert, others;
-    GridLayout gridLayout;
+    View v;
+    private RecyclerView myrecyclerview;
+    private List<Categories> lstCategories;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,16 +73,6 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,70 +80,26 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v;
         v = inflater.inflate(R.layout.fragment_home, container, false);
-        vegetables = v.findViewById(R.id.homefrag_vegetables);
-        fruit = v.findViewById(R.id.homefrag_fruit);
-        medicine = v.findViewById(R.id.homefrag_medicine);
-        beverage = v.findViewById(R.id.homefrag_beverage);
-        dessert = v.findViewById(R.id.homefrag_dessert);
-        others = v.findViewById(R.id.homefrag_others);
-        gridLayout = v.findViewById(R.id.grid_layout);
-
-
-        fruit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), FruitActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        vegetables.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), VegetablesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        medicine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), MedicineActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        beverage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(),BeverageActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        dessert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), DessertActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        others.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), OthersActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        myrecyclerview = (RecyclerView) v.findViewById(R.id.recView);
+        HomeFragAdapter recyclerAdapter = new HomeFragAdapter(getContext(), lstCategories);
+        myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myrecyclerview.setAdapter(recyclerAdapter);
         return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        lstCategories = new ArrayList<>();
+        lstCategories.add(new Categories("FRUIT", R.drawable.fruit));
+        lstCategories.add(new Categories("VEGETABLE", R.drawable.vegetables));
+        lstCategories.add(new Categories("BEVERAGE", R.drawable.beverage));
+        lstCategories.add(new Categories("DESSERT", R.drawable.dessert));
+        lstCategories.add(new Categories("MEDICINE", R.drawable.medicine));
+        lstCategories.add(new Categories("OTHER", R.drawable.others));
+
+
     }
 
 }

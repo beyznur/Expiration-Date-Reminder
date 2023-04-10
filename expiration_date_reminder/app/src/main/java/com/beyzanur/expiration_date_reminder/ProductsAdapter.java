@@ -77,11 +77,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
                                             Intent intent = new Intent(v.getContext(),MainActivity.class);
                                             intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
                                             context.startActivity(intent);
-
                                         }
                                         else
                                         {
-                                            Toast.makeText(context, "EKLENEMEDİ", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "WRONG", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -91,7 +90,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println("negatif basildi");
+                        System.out.println("No");
 
                     }
                 });

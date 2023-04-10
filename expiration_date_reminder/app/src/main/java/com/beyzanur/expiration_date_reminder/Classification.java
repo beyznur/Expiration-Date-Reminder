@@ -21,26 +21,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class Classification {
-    
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Products> categoryArrayList;
-
     public void CatClass(RecyclerView recyclerView, Context context, String category){
-
         categoryArrayList=new ArrayList<>();
-
-        db.collection("users")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .collection("urunler")
-                .whereEqualTo("productCat",category)
-                .get()
+        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("urunler").whereEqualTo("productCat",category).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
                                 String product_name = (String) document.getData().get("productName");
                                 String product_cat = (String) document.getData().get("productCat");
                                 String product_date = (String) document.getData().get("productDate");
@@ -48,17 +39,9 @@ public class Classification {
                                 Products products = new Products(product_name, product_cat, product_date, product_notification);
                                 categoryArrayList.add(products);
                             }
-                            
-                            if (categoryArrayList.isEmpty()){
-                                Toast.makeText(context, "NO ITEM", Toast.LENGTH_SHORT).show();
-                            }
-
+                            if (categoryArrayList.isEmpty()){   Toast.makeText(context, "NO ITEM", Toast.LENGTH_SHORT).show();  }
                         }
-
-                        else
-                        {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
+                        else { Log.d(TAG, "Error getting documents: ", task.getException()); }
                         recyclerView.setLayoutManager(new LinearLayoutManager(context.getApplicationContext()));
                         recyclerView.setAdapter(new ProductsAdapter(context, categoryArrayList));
                     }

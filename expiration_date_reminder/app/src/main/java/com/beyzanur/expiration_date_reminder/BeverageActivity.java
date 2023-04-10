@@ -17,6 +17,7 @@ public class BeverageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.beverage_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         Classification classification = new Classification();
         classification.CatClass(recyclerView,getApplicationContext(),"Beverage");
 

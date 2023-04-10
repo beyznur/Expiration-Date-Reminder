@@ -199,7 +199,6 @@ public class AddProductActivity extends AppCompatActivity {
         intent.putExtra("category",productCat);
         intent.putExtra("name",productName);
 
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), RQS_1, intent, 0);
         RQS_1++;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -228,7 +227,6 @@ public class AddProductActivity extends AppCompatActivity {
         productDate=selectDateTxt.getText().toString().trim();
         productNotification=addNotificationSelect.getText().toString().trim();
 
-
         Products product = new Products( productName, productCat, productDate, productNotification);
 
         if(!TextUtils.isEmpty(productName) && !TextUtils.isEmpty(productCat)){
@@ -238,25 +236,21 @@ public class AddProductActivity extends AppCompatActivity {
             products.put("Category",productCat);
             products.put("ProductName",productName);
 
-
-            dbproducts.collection("urunler").document().set(product).addOnSuccessListener(new OnSuccessListener<Void>() {
+            dbproducts.collection("urunler").document()
+                    .set(product).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    Toast.makeText(AddProductActivity.this,"eklendi",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductActivity.this,"Added",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddProductActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(AddProductActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
-            });
-
-        }
-        else{
-            Toast.makeText(this, "You should enter name and category", Toast.LENGTH_LONG).show();
-        }
+            });}
+        else{   Toast.makeText(this, "You should enter name and category", Toast.LENGTH_LONG).show();   }
     }
 
 

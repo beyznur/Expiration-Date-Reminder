@@ -152,7 +152,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="50dp"
                                 android:layout_alignLeft="@+id/add_product_vegetables"
-                                android:layout_marginLeft="115dp"
+                                android:layout_marginLeft="110dp"
                                 android:text="Fruit"
                                 android:textSize="10sp" />
 
@@ -184,7 +184,7 @@
                                 android:text="Dessert"
                                 android:id="@+id/add_product_dessert"
                                 android:textSize="10sp"
-                                android:layout_marginLeft="115dp"/>
+                                android:layout_marginLeft="112dp"/>
 
 
 
@@ -275,7 +275,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="2dp"
-                                android:text="How many days before the notification should be sent?"
+                                android:text="How many days before should the notification be sent?"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -283,7 +283,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginTop="30dp"
+                                android:layout_marginTop="40dp"
                                 android:layout_marginEnd="0dp"
                                 android:layout_marginBottom="20dp"
                                 android:id="@+id/add_notification_select"

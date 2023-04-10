@@ -24,16 +24,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class FruitActivity extends AppCompatActivity{
-
     RecyclerView recyclerView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit);
-
-
         recyclerView = findViewById(R.id.fruit_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -42,3 +37,4 @@ public class FruitActivity extends AppCompatActivity{
 
     }
 }
+
