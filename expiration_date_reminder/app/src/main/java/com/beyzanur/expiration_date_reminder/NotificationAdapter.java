@@ -84,7 +84,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                         }
                                         else
                                         {
-                                            Toast.makeText(context, "EKLENEMEDİ", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "FAILED TO ADD.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -94,7 +94,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println("negatif basildi");
+
 
                     }
                 });
@@ -117,7 +117,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     static class MyViewHolder extends RecyclerView.ViewHolder
     {
         TextView knowledge;
-        ImageButton deleteButton,editButton;
+        ImageButton deleteButton;
 
         public MyViewHolder(View itemView) {
             super(itemView);

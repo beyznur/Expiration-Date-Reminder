@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -62,6 +64,7 @@ public class NotificationFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,12 +83,12 @@ public class NotificationFragment extends Fragment {
         recyclerView=v.findViewById(R.id.notificationFrag_recycler);
 
         init();
+
         return v;
     }
 
     public void init(){
         productsArrayList=new ArrayList<>();
-      //  productsArrayList.clear();
         db.collection("users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("notification").get()
@@ -105,7 +108,10 @@ public class NotificationFragment extends Fragment {
                                 NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(),productsArrayList);
                                 recyclerView.setLayoutManager(linearLayoutManager);
                                 recyclerView.setAdapter(notificationAdapter);
-
+                            }
+                            if(productsArrayList.isEmpty())
+                            {
+                                Toast.makeText(getContext(), "NO ITEM", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else{

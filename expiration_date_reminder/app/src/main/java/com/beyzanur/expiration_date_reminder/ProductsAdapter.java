@@ -90,7 +90,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println("No");
 
                     }
                 });
@@ -99,8 +98,17 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
 
 
         });
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(),UpdateProductActivity.class);
 
-
+                intent.putExtra("name", products.get(position).getProductName());
+                intent.putExtra("cat", products.get(position).getProductCat());
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -121,7 +129,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             productDate=itemView.findViewById(R.id.product_date_recyler);
             productName=itemView.findViewById(R.id.product_name_recyler);
             deleteButton=itemView.findViewById(R.id.deletebtn_recycler);
-            editButton=itemView.findViewById(R.id.deletebtn_recycler);
+            editButton=itemView.findViewById(R.id.editbtn_recycler);
 
 
         }

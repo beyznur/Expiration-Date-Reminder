@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Expiration_date_reminder"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity

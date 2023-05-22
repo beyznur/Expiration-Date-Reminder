@@ -22,11 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +44,7 @@ public class AddProductActivity extends AppCompatActivity {
     ImageView selectDateImage,addBack;
     DatePicker pickerDate;
     TextView enterCategory,selectDateTxt;
+    Calendar cal;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     DocumentReference dbproducts = firebaseFirestore.collection("users").
             document(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -73,6 +78,13 @@ public class AddProductActivity extends AppCompatActivity {
 
         enterCategory=findViewById(R.id.enter_category);
         selectDateTxt=findViewById(R.id.add_selectdate_textview);
+
+        addBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         vegetablesCat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,12 +154,13 @@ public class AddProductActivity extends AppCompatActivity {
                 now.get(Calendar.DAY_OF_MONTH),
                 null);
 
+        addNotificationSelect.setText("0");
         sumitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar current = Calendar.getInstance();
 
-                Calendar cal = Calendar.getInstance();
+                cal = Calendar.getInstance();
                 cal.set(pickerDate.getYear(),
                         pickerDate.getMonth(),
                         pickerDate.getDayOfMonth()-Integer.parseInt(addNotificationSelect.getText().toString()));
@@ -187,7 +200,7 @@ public class AddProductActivity extends AppCompatActivity {
                 }
 
                 addProduct();
-                setAlarm(cal);
+
 
             }
         });
@@ -227,30 +240,55 @@ public class AddProductActivity extends AppCompatActivity {
         productDate=selectDateTxt.getText().toString().trim();
         productNotification=addNotificationSelect.getText().toString().trim();
 
+
         Products product = new Products( productName, productCat, productDate, productNotification);
 
-        if(!TextUtils.isEmpty(productName) && !TextUtils.isEmpty(productCat)){
-            Map<String,Object> products =new HashMap<>();
-            products.put("ProductNotification",productNotification);
-            products.put("ProductDate",productDate);
-            products.put("Category",productCat);
-            products.put("ProductName",productName);
+        Query query = dbproducts.collection("urunler")
+                .whereEqualTo("productName", productName);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null && !querySnapshot.isEmpty())
+                    {
+                        Toast.makeText(AddProductActivity.this, "A product with the same name already exists.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-            dbproducts.collection("urunler").document()
-                    .set(product).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(AddProductActivity.this,"Added",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddProductActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    else{
+                        if(!TextUtils.isEmpty(productName) && !TextUtils.isEmpty(productCat)){
+                            Map<String,Object> products =new HashMap<>();
+                            products.put("ProductNotification",productNotification);
+                            products.put("ProductDate",productDate);
+                            products.put("Category",productCat);
+                            products.put("ProductName",productName);
+
+                            dbproducts.collection("urunler").document()
+                                    .set(product).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            setAlarm(cal);
+                                            Toast.makeText(AddProductActivity.this,"Added",Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(AddProductActivity.this,MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(AddProductActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });}
+                        else{   Toast.makeText(AddProductActivity.this, "You should enter name and category", Toast.LENGTH_LONG).show();   }
+                    }
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(AddProductActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            });}
-        else{   Toast.makeText(this, "You should enter name and category", Toast.LENGTH_LONG).show();   }
+
+            }
+        });
+
+
+
+
     }
 
 

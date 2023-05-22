@@ -9,7 +9,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +41,14 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgotPassword, signUpText;
     private String txtEmail, txtPassword;
 
+    SharedPreferences preferences;
+
+    SharedPreferences.Editor editor;
+
 
     private void init(){
+        preferences = getSharedPreferences("GirisBilgi", MODE_PRIVATE);
+        editor = preferences.edit();
         mAuth = FirebaseAuth.getInstance();
         editEmail = (EditText)findViewById(R.id.username);
         editPassword = (EditText)findViewById(R.id.password);
@@ -55,6 +63,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
 
+        String email = preferences.getString("email", "");
+        String password = preferences.getString("password", "");
+
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (!TextUtils.isEmpty(txtEmail)){
                 if (!TextUtils.isEmpty(txtPassword)){
+
                     mProgress = new ProgressDialog(this);
                     mProgress.setTitle("Logging in...");
                     mProgress.show();
@@ -86,9 +103,13 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
-                                        progressAyar();
 
-                                        Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
+                                        editor.putString("email", txtEmail);
+                                        editor.putString("password", txtPassword);
+                                        editor.apply();
+
+                                        progressAyar();
+                                      Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
                                         finish();
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                     }else{
