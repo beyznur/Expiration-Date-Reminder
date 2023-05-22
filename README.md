@@ -8,6 +8,12 @@ Son Kullanma Tarihi Takip Uygulaması, Android Studio geliştirme ortamında Jav
 - Bildirimler: Kullanıcılar, belirledikleri tarihte veya son kullanma tarihine yaklaştıklarında bildirim alabilirler. Bu sayede ürünlerin son kullanma tarihini kaçırmamaları sağlanır.
 - Firestore entegrasyonu: Veritabanı olarak Firestore kullanılmıştır. Bu sayede kullanıcıların ekledikleri ürünler güvenli bir şekilde depolanır ve her zaman erişilebilir olur.
 
+![1](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/02ba5ffc-0865-47bc-ae49-8769e8b32b4a)
+![2](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/a5a68fa9-38d3-48ea-9428-a45ec3d7091f)
+![5](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/bf51a628-1e19-489a-8aff-5db34dbeb34f)
+![4](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/478f4339-907c-4c17-b204-cb8f84094003)
+![3](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/2f0c102c-8c0f-4846-aa45-70aef3578ef0)
+![6](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/a987dc17-9364-4ff6-acb6-001a5c4048b2)
 
 
 
