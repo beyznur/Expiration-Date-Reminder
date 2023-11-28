@@ -1,18 +1,30 @@
-# Expiration-Date-Reminder
+# Son Kullanma Tarihi Hatırlatıcı Mobil Uygulama📅
 
-The Expiration Date Reminder Application is a mobile app developed in Java language using the Android Studio development environment. This app aims to help users track and organize their expiration dates.
+Yöntemini üstlendiğim üniversite bitirme projesidir ve aşağıdaki özellikleri içermektedir:
 
-Features:
-- Product Addition, Deletion and Update: Users can add, update, and delete various products through the app. This feature enables users to effectively manage and update their product database.
+## 📝 Proje Tanımı
+Sorumlu olduğum bölüm, veri tabanı CRUD işlemleri ile hatırlatıcı bildirimlerin entegrasyonunu içerir.
 
-- Category-based Listing: The added products are listed based on categories defined by the user, making them easily accessible. This approach allows users to view their products in an organized manner and quickly access the desired category. Additionally, directing activities to a single class prevents code repetition, making the app more modular and maintainable.
+## 🔐 Firebase Authentication
+Kullanıcı girişi, Firebase Authentication kullanılarak sağlanmıştır.
 
-- Notifications: Users can receive notifications on specified dates or when the expiration date is approaching. This ensures that they don't miss the expiration dates of their products.
+## 🗃️ Firebase Firestore Entegrasyonu
+Firebase Firestore, ürün ekleme, silme, güncelleme ve arama işlemleri için kullanılmıştır.
 
-- Firestore integration: Firestore is used as the database. This ensures that the products added by users are securely stored and always accessible.
+## 📋 Recyclerview Kullanımı
+Recyclerview, kategori tabanlı listeleme işlevselliği için entegre edilmiştir.
 
-These features provide users with a convenient way to track and manage their product expiration dates, promoting organization and preventing wastage.
+## ⏰ Hatırlatıcı Bildirimler
+BroadcastReceiver ve AlarmManager, kullanıcıların belirledikleri son kullanma tarihlerine göre hatırlatıcı bildirimlerin oluşturulması ve kullanıcılara gönderilmesi için kullanılmıştır. 
 
+## 💻 Kullanılan Teknolojiler
+- Java
+- Android Studio
+- Firebase Authentication
+- Firebase Firestore
+- Recyclerview
+- Broadcast Receiver
+- AlarmManager
 
 ![1](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/17127bfc-0a21-4aec-9869-a1a7638f20f8)
 ![2](https://github.com/beyznur/Expiration-Date-Reminder/assets/111892780/1807da46-aa15-4dd1-995a-8d4a3e57143f)
